@@ -302,41 +302,6 @@ module.exports = function (grunt) {
       }
     },
 
-    htmlmin: {
-      dist: {
-        options: {
-          collapseBooleanAttributes: true,
-          collapseWhitespace: true,
-          conservativeCollapse: true,
-          decodeEntities: false,
-          minifyCSS: {
-            compatibility: 'ie8',
-            keepSpecialComments: 0
-          },
-          minifyJS: true,
-          minifyURLs: false,
-          processConditionalComments: true,
-          removeAttributeQuotes: true,
-          removeComments: true,
-          removeOptionalAttributes: true,
-          removeOptionalTags: true,
-          removeRedundantAttributes: true,
-          removeScriptTypeAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          removeTagWhitespace: false,
-          sortAttributes: true,
-          sortClassName: true
-        },
-        expand: true,
-        cwd: '_gh_pages',
-        dest: '_gh_pages',
-        src: [
-          '**/*.html',
-          '!examples/**/*.html'
-        ]
-      }
-    },
-
     pug: {
       options: {
         pretty: true,
@@ -392,12 +357,6 @@ module.exports = function (grunt) {
           urls: ['http://127.0.0.1:3000/js/tests/index.html?hidepassed'],
           browsers: grunt.file.readYAML('grunt/sauce_browsers.yml')
         }
-      }
-    },
-
-    exec: {
-      npmUpdate: {
-        command: 'npm update'
       }
     },
 
@@ -498,7 +457,7 @@ module.exports = function (grunt) {
   grunt.registerTask('docs-js', ['uglify:docsJs', 'uglify:customize']);
   grunt.registerTask('lint-docs-js', ['jshint:assets', 'jscs:assets']);
   grunt.registerTask('docs', ['docs-css', 'lint-docs-css', 'docs-js', 'lint-docs-js', 'clean:docs', 'copy:docs', 'build-glyphicons-data', 'build-customizer']);
-  grunt.registerTask('docs-github', ['jekyll:github', 'htmlmin']);
+  grunt.registerTask('docs-github', ['jekyll:github']);
 
   grunt.registerTask('prep-release', ['dist', 'docs', 'docs-github', 'compress']);
 };

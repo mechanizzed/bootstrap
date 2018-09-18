@@ -125,11 +125,11 @@ module.exports = function (grunt) {
 
     uglify: {
       options: {
-        compress: {
-          warnings: false
-        },
+        compress: true,
         mangle: true,
-        preserveComments: /^!|@preserve|@license|@cc_on/i
+        output: {
+          comments: /^!|@preserve|@license|@cc_on/i
+        }
       },
       core: {
         src: '<%= concat.bootstrap.dest %>',
@@ -208,7 +208,7 @@ module.exports = function (grunt) {
         options: {
           map: true
         },
-        src: 'docs/assets/css/src/docs.css'
+        src: 'docs/assets/css/docs.css'
       },
       examples: {
         expand: true,
@@ -244,10 +244,13 @@ module.exports = function (grunt) {
         // TODO: disable `zeroUnits` optimization once clean-css 3.2 is released
         //    and then simplify the fix for https://github.com/twbs/bootstrap/issues/14837 accordingly
         compatibility: 'ie8',
-        keepSpecialComments: '*',
         sourceMap: true,
         sourceMapInlineSources: true,
-        advanced: false
+        level: {
+          1: {
+            specialComments: 'all'
+          }
+        }
       },
       minifyCore: {
         src: 'dist/css/<%= pkg.name %>.css',
